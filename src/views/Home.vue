@@ -34,6 +34,9 @@ import ModalAbout from '@/components/ModalAbout.vue'
 import ModalHow from '@/components/ModalHow.vue'
 import ModalLogin from '@/components/ModalLogin.vue'
 import ModalSignout from '@/components/ModalSignout.vue'
+import { getAuth, onAuthStateChanged} from "firebase/auth";
+
+
 
 export default {
 	name: 'Home',
@@ -43,8 +46,30 @@ export default {
 		ModalHow,
 		ModalLogin,
 		ModalSignout,
+	},
+	methods: {
+		isuser() {
+			let auth = getAuth();
+			onAuthStateChanged(auth, (user) => {
+				if (user) {
+					console.log("userrrrrrrrrrrrrrrrr");
+					console.log(user);
+					// User is signed in
+
+				} else {
+					// User is signed out
+					console.log("outtttttttttttttt");
+
+				}
+			});
+		}
+	},
+	created(){
+		this.isuser();
 	}
 }
+
+
 </script>
 <style scoped>
 @media (min-width: 576px) {

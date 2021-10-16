@@ -10,13 +10,13 @@
 					</button>
 				</div>
 				<div class="modal-body p-5 pt-0">
-					<form id="f_register">
+					<form id="f_register" @submit.prevent="submit">
 						<div class="form-floating mb-3">
-							<input name="username" type="text" class="form-control rounded-4" id="register_user" placeholder="Username">
+							<input v-model="form.name" name="username" type="text" class="form-control rounded-4" id="register_user" placeholder="Username">
 							<label for="register_user">使用者名稱</label>
 						</div>
 						<div class="form-floating mb-3">
-							<input name="password" type="password" class="form-control rounded-4" id="register_pwd" placeholder="Password">
+							<input v-model="form.password" name="password" type="password" class="form-control rounded-4" id="register_pwd" placeholder="Password">
 							<label for="register_pwd">密碼</label>
 						</div>
 						<button id="btn_register" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">註冊 & 開始遊戲</button>
@@ -32,11 +32,53 @@
 </template>
 
 <script>
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 
 export default {
 	name: 'ModalStart',
 	props: {
 		msg: String
+	},
+	data () {
+		return {
+			form: {
+				name: "",
+				password: "",
+			},
+			error: null
+		};
+	},
+	methods: {
+		submit(){
+			let auth = getAuth();
+			let email = this.form.name + '@custom.com';
+			createUserWithEmailAndPassword(auth, email, this.form.password)
+			.then((userCredential) => {
+				// Signed in 
+				const user = userCredential.user;
+				console.log(user);
+				// if(game_id == null){
+				// 	newGame(info);
+				// } else {
+				// 	location.reload();
+				// }
+			})
+			.catch((error) => {
+				switch (error.code){
+					case 'auth/weak-password':
+						alert('密碼必須至少含有6個字元');
+						break;
+					case 'auth/invalid-email':
+						alert('使用者名稱不可包含符號');
+						break;
+					case 'auth/email-already-in-use':
+						alert('使用者名稱已被使用');
+						break;
+					default:
+						console.log(error.code, error.message);
+				}
+			});
+		}
 	}
 }
 </script>

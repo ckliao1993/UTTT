@@ -1,0 +1,47 @@
+<template>
+	<div class="modal" tabindex="-1" id="m_start">
+		<div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+			<div class="modal-content rounded-5 shadow">
+				<div class="modal-header p-5 pb-4 border-bottom-0">
+					<!-- <h5 class="modal-title">Modal title</h5> -->
+					<h2 class="fw-bold mb-0">建立帳號</h2>
+					<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+						<i class="bi bi-x-lg btn-x"></i>
+					</button>
+				</div>
+				<div class="modal-body p-5 pt-0">
+					<form id="f_register">
+						<div class="form-floating mb-3">
+							<input name="username" type="text" class="form-control rounded-4" id="register_user" placeholder="Username">
+							<label for="register_user">使用者名稱</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input name="password" type="password" class="form-control rounded-4" id="register_pwd" placeholder="Password">
+							<label for="register_pwd">密碼</label>
+						</div>
+						<button id="btn_register" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">註冊 & 開始遊戲</button>
+						<small class="text-muted">當按下註冊，即代表同意本網站的使用條款。</small>
+					</form>
+					<hr class="my-4">
+					<h2 class="fs-5 fw-bold mb-3">已有帳號?</h2>
+					<button class="w-100 py-2 mb-2 btn btn-secondary rounded-4" data-bs-toggle="modal" data-bs-target="#m_log_in">登入</button>
+			</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+
+export default {
+	name: 'ModalStart',
+	props: {
+		msg: String
+	}
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+
+</style>

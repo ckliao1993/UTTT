@@ -1,0 +1,38 @@
+<template>
+	<div class="modal" tabindex="-1" id="m_sign_out">
+		<div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+			<div class="modal-content rounded-5 shadow">
+				<div class="modal-header p-5 pb-4 border-bottom-0">
+					<h2 class="fw-bold mb-0">登出</h2>
+					<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+						<i class="bi bi-x-lg btn-x"></i>
+					</button>
+				</div>
+				<div class="modal-body p-5 pt-0">
+					<h2 class="fs-5 fw-bold mb-3">確定要登出?</h2>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						<button id="btn_sign_out" class="btn btn-secondary" type="button">是的</button>
+						<button class="btn btn-primary" type="button" data-bs-dismiss="modal">不了</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</template>
+
+<script>
+
+export default {
+	name: 'ModalSignout',
+	props: {
+		msg: String
+	}
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+
+</style>

@@ -1,4 +1,5 @@
 <template>
+	<Header/>
 	<div class="home d-flex flex-column justify-content-between">
 		<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
 		<!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -19,54 +20,35 @@
 		<div>
 			<a href="#" data-bs-toggle="modal" data-bs-target="#m_about">About</a>
 		</div>
-		<ModalStart/>
-		<ModalAbout/>
-		<ModalHow/>
-		<ModalLogin/>
-		<ModalSignout/>
 	</div>
+	<ModalStart/>
+	<ModalAbout/>
+	<ModalHow/>
+	<ModalLogin/>
+	<ModalSignout/>
 </template>
 
 <script>
 // @ is an alias to /src
+import Header from '@/components/Header.vue'
 import ModalStart from '@/components/ModalStart.vue'
 import ModalAbout from '@/components/ModalAbout.vue'
 import ModalHow from '@/components/ModalHow.vue'
 import ModalLogin from '@/components/ModalLogin.vue'
 import ModalSignout from '@/components/ModalSignout.vue'
-import { getAuth, onAuthStateChanged} from "firebase/auth";
 
 
 
 export default {
 	name: 'Home',
 	components: {
+		Header,
 		ModalStart,
 		ModalAbout,
 		ModalHow,
 		ModalLogin,
 		ModalSignout,
 	},
-	methods: {
-		isuser() {
-			let auth = getAuth();
-			onAuthStateChanged(auth, (user) => {
-				if (user) {
-					console.log("userrrrrrrrrrrrrrrrr");
-					console.log(user);
-					// User is signed in
-
-				} else {
-					// User is signed out
-					console.log("outtttttttttttttt");
-
-				}
-			});
-		}
-	},
-	created(){
-		this.isuser();
-	}
 }
 
 

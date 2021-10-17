@@ -3,20 +3,23 @@
 		<div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
 			<a class="navbar-brand fw-bold fs-1 text-light lh-1 ad px-3" href="/">O O X X</a>
 			<div class="d-flex flex-row-reverse">
-				<div id="d_big" class="flex-shrink-0 dropdown btn-group">
+				<div class="flex-shrink-0 dropdown btn-group">
 					<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-light fs-2" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="bi bi-list"></i>
 					</a>
-					<ul id="d_one" class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2">
+					<ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2">
 						<a @click="newGame" class="dropdown-item btn_new_game" href="#">新遊戲</a>
 						<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_how">遊戲說明</a>
 						<hr class="dropdown-divider">
 						<a v-show="isLogin" class="dropdown-item" href="#">{{userName}}</a>
-						<a v-show="isLogin?false:true" @click="whatstore" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_log_in" id="btn_to_login" ref="btn_login">登入</a>
-						<a v-show="isLogin" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_sign_out" id="btn_to_signout">登出</a>
+						<a v-show="isLogin?false:true" @click="whatstore" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_log_in" ref="btn_login">登入</a>
+						<a v-show="isLogin" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_sign_out" >登出</a>
 						<div class="form-check form-switch ms-3">
-							<input id="theme" class="form-check-input" type="checkbox" role="switch">
-							<label id="icon_theme" class="form-check-label"></label>
+							<input :checked="theme" @click="toggleTheme" class="form-check-input" type="checkbox" role="switch">
+							<label class="form-check-label">
+								<i v-show="theme" class="bi bi-moon-fill"></i>
+								<i v-show="theme==false" class="bi bi-sun-fill"></i>
+							</label>
 						</div>
 					</ul>
 				</div>
@@ -74,6 +77,9 @@ export default {
 				console.log(game_url);
 			});
 		},
+		toggleTheme(){
+			this.$store.commit('changeTheme', this.theme ? 'light' : 'dark');
+		}
 	},
 	computed: {
 		isLogin(){
@@ -82,6 +88,13 @@ export default {
 		userName(){
 			return this.$store.state.username;
 		},
+		theme(){
+			if(this.$store.state.theme == 'dark'){
+				return true;
+			} else {
+				return false;
+			}
+		}
 	},
 	created(){
 		this.isUser();

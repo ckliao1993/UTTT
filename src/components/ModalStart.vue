@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import { getDatabase, ref, set } from "firebase/database";
 
 export default {
 	name: 'ModalStart',
@@ -57,11 +58,11 @@ export default {
 				// Signed in 
 				const user = userCredential.user;
 				console.log(user);
-				// if(game_id == null){
-				// 	newGame(info);
-				// } else {
-				// 	location.reload();
-				// }
+				if(this.$store.state.game_id == ""){
+					this.newGame();
+				} else {
+					location.reload();
+				}
 			})
 			.catch((error) => {
 				switch (error.code){
@@ -78,7 +79,29 @@ export default {
 						console.log(error.code, error.message);
 				}
 			});
-		}
+		},
+		newGame(){
+			let db = getDatabase();
+			let url = window.location.href;
+			let game_id           = '';
+			let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			let charactersLength = characters.length;
+			for ( let i = 0; i < 6; i++ ) {
+				game_id += characters.charAt(Math.floor(Math.random() * charactersLength));
+			}
+			let game_url = url.substring(0, url.lastIndexOf('/')) + '/play.html?game=' + game_id;
+			set(ref(db, 'games/' + game_id), {
+				p1 : this.$store.state.username,
+				p2 : "",
+				now : 0,
+				next : 9,
+				last : 81,
+				sets : ",,,,,,,,",
+				moves : ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+			}).then(()=>{
+				console.log(game_url);
+			});
+		},
 	}
 }
 </script>

@@ -55,7 +55,6 @@ export default {
 			.then((userCredential)=>{
 				let user = userCredential.user
 				console.log(user);
-				console.log(this.$refs);
 				this.$refs.m_log_in_x.click();
 			})
 			.catch((error) => {

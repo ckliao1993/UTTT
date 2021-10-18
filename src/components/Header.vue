@@ -43,7 +43,6 @@ export default {
 			let auth = getAuth();
 			onAuthStateChanged(auth, (user) => {
 				if (user) {
-					console.log(user);
 					this.$store.commit('changeEmail', user.email);
 					this.$store.commit('login_signout', true);
 					// User is signed in

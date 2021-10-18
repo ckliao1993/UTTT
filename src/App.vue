@@ -107,10 +107,6 @@ html, body, #app {
 	background-color: var(--color-bg);
 }
 
-body {
-	
-	
-}
 .main {
 	padding-top: 5rem;
 	height: 100%;

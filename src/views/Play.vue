@@ -180,9 +180,11 @@
 			</div>
 		</div>
 	</div>
+	<Toast ref="toast"/>
 </template>
 
 <script>
+import Toast from '@/components/Toast.vue'
 import { getAuth} from "firebase/auth";
 import { getDatabase, ref, set,	update, onValue } from "firebase/database";
 import { Modal } from 'bootstrap';
@@ -204,6 +206,7 @@ const winningConditions = [
 export default {
 	name: 'Play',
 	components: {
+		Toast,
 	},
 	data(){
 		return {
@@ -279,15 +282,20 @@ export default {
 		},
 		makeAmove(event){
 			let click = event.target.dataset.cellno || event.target.parentElement.dataset.cellno;
-			console.log(click);
-			// console.log(this.moves);
-			console.log(this.moves[click]);
+			if(!this.$store.state.email){
+				let m_start = new Modal(document.getElementById('m_start'));
+				m_start.show();
+				return;
+			} else if (this.$store.state.email !== game.p1 && this.$store.state.email !== game.p2){
+				this.$refs.toast.toastMsg(game.p1.split("@")[0]+'與'+game.p2.split("@")[0]+'正在對戰中');
+				return;
+			}
 			if(game.now !== player){
-				alert("現在是對手的回合");
+				this.$refs.toast.toastMsg('現在是對手的回合');
 				return;
 			}
 			if(this.moves[click] !== undefined){
-				alert("想幹嘛?");
+				this.$refs.toast.toastMsg('想幹嘛?');
 				return;
 			}
 			if(this.allowed[click/9] == 1){
@@ -295,7 +303,7 @@ export default {
 				this.allowed = [,,,,,,,,];
 				this.lastOne = "";
 			} else {
-				alert("請將棋子放入閃爍的大棋盤格中");
+				this.$refs.toast.toastMsg('請將棋子放入閃爍的大棋盤格中');
 			}
 		},
 		async updateDB(last){
@@ -316,22 +324,27 @@ export default {
 		},
 		checkUserState(){
 			if(!this.$store.state.islogin){
-				let m_start = new Modal(document.getElementById('m_start'));
-				m_start.show();
+				if(game.p2 == ""){
+					let m_start = new Modal(document.getElementById('m_start'));
+					m_start.show();
+				} else if (game.p2){
+					this.$refs.toast.toastMsg(game.p1.split("@")[0]+'與'+game.p2.split("@")[0]+'正在對戰中');
+				}
 			} else if (game.p1 == this.$store.state.email){
 				//p1
 				player = 0;
 				this.light(player);
+			} else if (game.p2 == ""){
+				//no p2
+				this.joinGame(this.$store.state.email);
 			} else if (game.p2 == this.$store.state.email){
 				//p2
 				player = 1;
 				// let other = player ? game.p1.split('@')[0] : game.p2.split('@')[0] ;
 				this.light(player);
-			} else if (game.p2 == ""){
-				//no p2
-				//joinGame
 			} else {
 				alert('抱歉，有人搶先一步接受了對戰邀請');
+				this.$refs.toast.toastMsg(game.p1.split("@")[0]+'與'+game.p2.split("@")[0]+'正在對戰中');
 			}
 			
 		},
@@ -347,8 +360,18 @@ export default {
 					// Allow it.
 					this.allowed[game.next] = 1;
 				}
-				if(game.last<81){alert(other + " 下了一顆棋子");}
+				if(game.last<81){
+					this.$refs.toast.toastMsg(other + " 下了一顆棋子");
+				}
 			}
+		},
+		joinGame(email){
+			let updates = {};
+			updates['/games/' + game_id + '/p2'] = email;
+			update(ref(database), updates).then(()=>{
+				game.p2 = email;
+			});
+			this.$refs.toast.toastMsg('歡迎來到 OOXX');
 		},
 	},
 	created(){

@@ -3,7 +3,13 @@
 		<router-link to="/">Home</router-link> |
 		<router-link to="/about">About</router-link>
 	</div> -->
+	<Header/>
 	<router-view></router-view>
+	<ModalStart/>
+	<ModalAbout/>
+	<ModalHow/>
+	<ModalLogin/>
+	<ModalSignout/>
 </template>
 
 <style lang="scss">
@@ -39,5 +45,21 @@ html, body, #app {
 
 </style>
 <script>
-
+import Header from '@/components/Header.vue'
+import ModalStart from '@/components/ModalStart.vue'
+import ModalAbout from '@/components/ModalAbout.vue'
+import ModalHow from '@/components/ModalHow.vue'
+import ModalLogin from '@/components/ModalLogin.vue'
+import ModalSignout from '@/components/ModalSignout.vue'
+export default {
+	name: 'App',
+	components: {
+		Header,
+		ModalStart,
+		ModalAbout,
+		ModalHow,
+		ModalLogin,
+		ModalSignout,
+	},
+}
 </script>

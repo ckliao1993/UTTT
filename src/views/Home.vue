@@ -1,6 +1,5 @@
 <template>
-	<Header/>
-	<div class="home d-flex flex-column justify-content-between">
+	<div class="main d-flex flex-column justify-content-between">
 		<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
 		<!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 		<div class="container d-flex flex-column flex-fill justify-content-center">
@@ -14,57 +13,41 @@
 			</span>
 			<hr class="my-4">
 			<div class="d-grid">
-				<button class="btn btn-primary btn_new_game" data-bs-toggle="modal" data-bs-target="#m_start">開始遊戲</button>
+				<button id="btn_start" class="btn btn-primary btn_new_game" data-bs-toggle="modal" data-bs-target="#m_start">開始遊戲</button>
 			</div>
 		</div>
 		<div>
 			<a href="#" data-bs-toggle="modal" data-bs-target="#m_about">About</a>
 		</div>
 	</div>
-	<ModalStart/>
-	<ModalAbout/>
-	<ModalHow/>
-	<ModalLogin/>
-	<ModalSignout/>
 </template>
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
-import ModalStart from '@/components/ModalStart.vue'
-import ModalAbout from '@/components/ModalAbout.vue'
-import ModalHow from '@/components/ModalHow.vue'
-import ModalLogin from '@/components/ModalLogin.vue'
-import ModalSignout from '@/components/ModalSignout.vue'
+
 
 
 
 export default {
 	name: 'Home',
-	components: {
-		Header,
-		ModalStart,
-		ModalAbout,
-		ModalHow,
-		ModalLogin,
-		ModalSignout,
-	},
 }
 
 
 </script>
-<style scoped>
+<style>
 @media (min-width: 576px) {
 	.container {
 		height: 80vh;
 		width: 80vh !important;
 	}
 }
-.container {
-	width: 90vw !important;
-	height: 90vw;
+@media (max-width: 576px) {
+	.container {
+		width: 90vw !important;
+		height: 90vw;
+	}
 }
-.home {
+.main {
 	padding-top: 5rem;
 	height: 100%;
 }

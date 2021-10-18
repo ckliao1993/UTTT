@@ -9,7 +9,7 @@
 					</button>
 				</div>
 				<div class="modal-body p-5 pt-0 d-flex justify-content-center">
-					<a href="https://github.com/ckliao1993/UTTT" class="link-dark" target="_blank" data-bs-toggle="tooltip" title="Git Hub page">
+					<a href="https://github.com/ckliao1993/ooxx" class="link-dark" target="_blank" data-bs-toggle="tooltip" title="Git Hub page">
 						<i class="bi bi-github fs-1"></i>
 					</a>
 				</div>

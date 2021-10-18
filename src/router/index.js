@@ -19,11 +19,7 @@ const routes = [
     path: '/ooxx/play/:game_id',
     name: 'Play',
     component: () => import('../views/Play.vue')
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    component: () => import('../views/404.vue')
-  },
+  }
 ]
 
 const router = createRouter({

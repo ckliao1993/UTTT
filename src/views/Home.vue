@@ -1,5 +1,5 @@
 <template>
-	<div class="main d-flex flex-column justify-content-between">
+	<div class="main d-flex flex-column justify-content-between align-items-center">
 		<!-- <img alt="Vue logo" src="../assets/logo.png"> -->
 		<!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 		<div class="container d-flex flex-column flex-fill justify-content-center">
@@ -35,20 +35,5 @@ export default {
 
 </script>
 <style>
-@media (min-width: 576px) {
-	.container {
-		height: 80vh;
-		width: 80vh !important;
-	}
-}
-@media (max-width: 576px) {
-	.container {
-		width: 90vw !important;
-		height: 90vw;
-	}
-}
-.main {
-	padding-top: 5rem;
-	height: 100%;
-}
+
 </style>

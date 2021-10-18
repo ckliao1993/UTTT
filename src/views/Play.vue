@@ -180,18 +180,22 @@
 			</div>
 		</div>
 	</div>
+	<ModalWin ref="win"/>
+	<ModalLoading ref="load"/>
 	<Toast ref="toast"/>
 </template>
 
 <script>
 import Toast from '@/components/Toast.vue'
+import ModalWin from '@/components/ModalWin.vue'
+import ModalLoading from '@/components/ModalLoading.vue'
 import { getAuth} from "firebase/auth";
 import { getDatabase, ref, set,	update, onValue } from "firebase/database";
 import { Modal } from 'bootstrap';
 
 const auth = getAuth();
 const database = getDatabase();
-let game, player;
+let game, player, m_load;
 const winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -207,6 +211,8 @@ export default {
 	name: 'Play',
 	components: {
 		Toast,
+		ModalWin,
+		ModalLoading,
 	},
 	data(){
 		return {
@@ -231,6 +237,7 @@ export default {
 			return;
 		},
 		initGame(){
+			
 			let param = this.$route.params.game_id;
 			console.log(param);
 			onValue(ref(database, '/games/' + param), (snapshot) => {
@@ -243,7 +250,7 @@ export default {
 						if(value){
 							value = parseInt(value);
 							this.moves[index] = value;
-					}
+						}
 					});
 					game.sets.forEach((value, index)=>{
 						if(value){
@@ -253,12 +260,13 @@ export default {
 					});
 					this.$store.commit('changeGameId', param);
 					this.lastOne = game.last;
-					let winner = this.checkWin(game.sets);
-					if(winner){
-						//win
+					console.log(this.$refs.load);
+					m_load.hide();
+					if(game.next == ""){
+						let win_name = winner ? game.p2.split('@')[0] : game.p1.split('@')[0];
+						this.$refs.win.show(win_name, winner);
 						return;
 					} else {
-						// who?
 						this.checkUserState();
 					}
 				} else {
@@ -315,6 +323,8 @@ export default {
 			let win = await this.checkWin(game.moves.slice(board*9, board*9+9));
 			if(win){game.sets[board] = win;}
 			if(game.sets[next] !== null){next = 9;}
+			let winner = await this.checkWin(game.sets);
+			if(winner){next = "";}
 			updates['/games/' + this.game_id + '/moves'] = game.moves.join(',');
 			updates['/games/' + this.game_id + '/sets'] = game.sets.join(',');
 			updates['/games/' + this.game_id + '/now'] = player?0:1;
@@ -376,6 +386,10 @@ export default {
 	},
 	created(){
 		this.initGame();
+	},
+	mounted(){
+		m_load = new Modal(document.getElementById('m_loading'));
+		m_load.show();
 	},
 	computed:{
 	},

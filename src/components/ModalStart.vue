@@ -89,7 +89,7 @@ export default {
 			for ( let i = 0; i < 6; i++ ) {
 				game_id += characters.charAt(Math.floor(Math.random() * charactersLength));
 			}
-			let game_url = url.substring(0, url.lastIndexOf('/')) + '/play.html?game=' + game_id;
+			let game_url = window.location.origin + '/ooxx/play/' + game_id;
 			set(ref(db, 'games/' + game_id), {
 				p1 : this.$store.state.email,
 				p2 : "",
@@ -100,6 +100,7 @@ export default {
 				moves : ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
 			}).then(()=>{
 				console.log(game_url);
+				window.location.replace(game_url);
 			});
 		},
 	}

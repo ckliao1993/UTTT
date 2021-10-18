@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
 	state: {
 		islogin: false,
-		username: "",
+		email: "",
 		game_id: "",
 		theme: "light",
 	},
@@ -11,8 +11,8 @@ export default createStore({
 		login_signout (state, in_out){
 			state.islogin = in_out;
 		},
-		changeName (state, name){
-			state.username = name;
+		changeEmail (state, email){
+			state.email = email;
 		},
 		changeTheme (state, theme){
 			state.theme = theme;

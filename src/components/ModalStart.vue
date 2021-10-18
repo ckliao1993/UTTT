@@ -91,7 +91,7 @@ export default {
 			}
 			let game_url = url.substring(0, url.lastIndexOf('/')) + '/play.html?game=' + game_id;
 			set(ref(db, 'games/' + game_id), {
-				p1 : this.$store.state.username,
+				p1 : this.$store.state.email,
 				p2 : "",
 				now : 0,
 				next : 9,

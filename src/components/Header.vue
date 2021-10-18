@@ -8,7 +8,7 @@
 						<i class="bi bi-list"></i>
 					</a>
 					<ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2">
-						<a @click="newGame" class="dropdown-item btn_new_game" href="#">新遊戲</a>
+						<a @click="newGame" class="dropdown-item btn_new_game" href="javascript:;">新遊戲</a>
 						<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_how">遊戲說明</a>
 						<hr class="dropdown-divider">
 						<a v-show="isLogin" class="dropdown-item" href="#">{{userName}}</a>
@@ -31,6 +31,7 @@
 <script>
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { Modal } from 'bootstrap';
 
 export default {
 	name: 'Header',
@@ -43,19 +44,25 @@ export default {
 			onAuthStateChanged(auth, (user) => {
 				if (user) {
 					console.log(user);
-					let username = user.email.split('@')[0];
-					this.$store.commit('changeName', username);
+					this.$store.commit('changeEmail', user.email);
 					this.$store.commit('login_signout', true);
 					// User is signed in
 
 				} else {
 					// User is signed out
-					this.$store.commit('changeName', "");
+					this.$store.commit('changeEmail', "");
 					this.$store.commit('login_signout', false);
 				}
 			});
 		},
 		newGame(){
+			console.log(this.isLogin);
+			if(this.isLogin == false){
+				// this.$refs.btn_reg.click();
+				let m_start = new Modal(document.getElementById('m_start'));
+				m_start.show();
+				return;
+			}
 			let db = getDatabase();
 			let url = window.location.href;
 			let game_id           = '';
@@ -66,7 +73,7 @@ export default {
 			}
 			let game_url = url.substring(0, url.lastIndexOf('/')) + '/play.html?game=' + game_id;
 			set(ref(db, 'games/' + game_id), {
-				p1 : this.$store.state.username,
+				p1 : this.$store.state.email,
 				p2 : "",
 				now : 0,
 				next : 9,
@@ -86,7 +93,7 @@ export default {
 			return this.$store.state.islogin;
 		},
 		userName(){
-			return this.$store.state.username;
+			return this.$store.state.email.split('@')[0];
 		},
 		theme(){
 			if(this.$store.state.theme == 'dark'){

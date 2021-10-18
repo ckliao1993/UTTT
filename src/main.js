@@ -5,7 +5,7 @@ import store from './store'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "bootstrap"
-import {firebase, initializeApp} from 'firebase/app'
+import {initializeApp} from 'firebase/app'
 
 const firebaseConfig = {
 	apiKey: "AIzaSyDKRApkcL9qs2w9lw_CsAnh-QeAByrgf9Q",

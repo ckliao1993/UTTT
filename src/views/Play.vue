@@ -230,9 +230,9 @@ export default {
 		},
 		addPiece(where){
 			if(parseInt(this.moves[where]) === 0){
-				return '<svg width="80%" height="80%" fill="currentColor" class="bi bi-circle mx-auto my-auto" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>';
+				return '<svg width="80%" height="80%" fill="var(--color-oo)" class="bi bi-oo bi-circle mx-auto my-auto" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>';
 			} else if(parseInt(this.moves[where]) === 1) {
-				return '<svg width="90%" height="90%" fill="currentColor" class="bi bi-x-lg mx-auto my-auto" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/></svg>';
+				return '<svg width="90%" height="90%" fill="var(--color-xx)" class="bi bi-xx bi-x-lg mx-auto my-auto" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/></svg>';
 			}
 			return;
 		},
@@ -261,7 +261,7 @@ export default {
 					this.$store.commit('changeGameId', param);
 					this.lastOne = game.last;
 					console.log(this.$refs.load);
-					m_load.hide();
+					// m_load.hide();
 					if(game.next == ""){
 						let win_name = winner ? game.p2.split('@')[0] : game.p1.split('@')[0];
 						this.$refs.win.show(win_name, winner);
@@ -388,8 +388,8 @@ export default {
 		this.initGame();
 	},
 	mounted(){
-		m_load = new Modal(document.getElementById('m_loading'));
-		m_load.show();
+		// m_load = new Modal(document.getElementById('m_loading'));
+		// m_load.show();
 	},
 	computed:{
 	},
@@ -419,11 +419,10 @@ export default {
 .allow {
 	cursor: pointer;
 	animation: blinker 1.5s linear infinite;
-
 }
 @keyframes blinker {
 	50% {
-		background-color: yellow;
+		background-color: var(--color-shine);
 	}
 }
 .last {
@@ -435,30 +434,12 @@ export default {
 	}
 }
 .small {border-width: 1px !important;}
-/* .bg {background-color: var(--color-shine);}
-.bg-g {background-color: var(--color-shine-1);}
-.bg-0 {background-color: var(--color-win-oo);}
-.bg-1 {background-color: var(--color-win-xx);} */
-.bg-0 {background-color: red;}
-.bg-1 {background-color: blue;}
-.bi-circle, .oo {color: red;}
-.bi-x-lg {color: blue;}
-/* Board border */
-.top {border-bottom: 3px solid black;}
-.bottom {border-top: 3px solid black;}
-.left {border-right: 3px solid black;}
-.right {border-left: 3px solid black;}
 
-
-/* .bg {background-color: var(--color-shine);}
-.bg-g {background-color: var(--color-shine-1);}
 .bg-0 {background-color: var(--color-win-oo);}
 .bg-1 {background-color: var(--color-win-xx);}
-.bi-circle, .oo {color: var(--color-oo);}
-.bi-x-lg {color: var(--color-xx);}
 .top {border-bottom: 3px solid var(--color-text);}
 .bottom {border-top: 3px solid var(--color-text);}
 .left {border-right: 3px solid var(--color-text);}
-.right {border-left: 3px solid var(--color-text);}  */
+.right {border-left: 3px solid var(--color-text);}
 
 </style>

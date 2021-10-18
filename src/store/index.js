@@ -5,7 +5,7 @@ export default createStore({
 		islogin: false,
 		email: "",
 		game_id: "",
-		theme: "light",
+		theme: "",
 	},
 	mutations: {
 		login_signout (state, in_out){

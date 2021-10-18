@@ -6,17 +6,17 @@ const routes = [
     redirect: {name: "Home"}
   },
   {
-    path: '/',
+    path: '/ooxx/',
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/games',
+    path: '/ooxx/games',
     name: 'Games',
     component: () => import('../views/404.vue')
   },
   {
-    path: '/play/:game_id',
+    path: '/ooxx/play/:game_id',
     name: 'Play',
     component: () => import('../views/Play.vue')
   },

@@ -1,6 +1,6 @@
 <template>
 	<div class="modal" tabindex="-1" id="m_loading">
-		<div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down d-flex justify-content-center">
+		<div class="modal-dialog modal-dialog-centered d-flex justify-content-center">
 			<span class="text-white fw-bolder fs-1 text-center">Loading game data...</span>
 		</div>
 	</div>

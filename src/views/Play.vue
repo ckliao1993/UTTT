@@ -261,7 +261,7 @@ export default {
 					this.$store.commit('changeGameId', param);
 					this.lastOne = game.last;
 					console.log(this.$refs.load);
-					// m_load.hide();
+					m_load.hide();
 					if(game.next == ""){
 						let win_name = winner ? game.p2.split('@')[0] : game.p1.split('@')[0];
 						this.$refs.win.show(win_name, winner);
@@ -350,7 +350,6 @@ export default {
 			} else if (game.p2 == this.$store.state.email){
 				//p2
 				player = 1;
-				// let other = player ? game.p1.split('@')[0] : game.p2.split('@')[0] ;
 				this.light(player);
 			} else {
 				alert('抱歉，有人搶先一步接受了對戰邀請');
@@ -388,8 +387,8 @@ export default {
 		this.initGame();
 	},
 	mounted(){
-		// m_load = new Modal(document.getElementById('m_loading'));
-		// m_load.show();
+		m_load = new Modal(document.getElementById('m_loading'));
+		m_load.show();
 	},
 	computed:{
 	},

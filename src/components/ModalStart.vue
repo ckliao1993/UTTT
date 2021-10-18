@@ -1,6 +1,6 @@
 <template>
 	<div class="modal" tabindex="-1" id="m_start">
-		<div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content rounded-5 shadow">
 				<div class="modal-header p-5 pb-4 border-bottom-0">
 					<!-- <h5 class="modal-title">Modal title</h5> -->

@@ -1,6 +1,6 @@
 <template>
 	<div class="modal" tabindex="-1" id="m_win">
-		<div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content rounded-5 shadow">
 				<div class="modal-header p-5 pb-4 border-bottom-0">
 					<h2 id="msg_color" class="fw-bold mb-0">{{winner}}</h2>

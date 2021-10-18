@@ -3,16 +3,20 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 const routes = [
   {
     path: '/',
+    redirect: {name: "Home"}
+  },
+  {
+    path: '/ooxx/',
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/games',
+    path: '/ooxx/games',
     name: 'Games',
-    component: () => import('../views/Games.vue')
+    component: () => import('../views/404.vue')
   },
   {
-    path: '/play/:game_id',
+    path: '/ooxx/play/:game_id',
     name: 'Play',
     component: () => import('../views/Play.vue')
   },

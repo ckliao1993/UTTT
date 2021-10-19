@@ -251,13 +251,13 @@ export default {
 					game.moves = game.moves.split(',');
 					game.moves.forEach((value, index)=>{
 						if(value){
-							value = parseInt(value);
-							this.moves[index] = value;
+							game.moves[index] = parseInt(value);
+							this.moves[index] = parseInt(value);
 						}
 					});
 					game.sets.forEach((value, index)=>{
 						if(value){
-							value = parseInt(value);
+							game.sets[index] = parseInt(value);
 							this.sets[index] = 'bg-' + value;
 						}
 					});
@@ -329,8 +329,10 @@ export default {
 			let win = await this.checkWin(game.moves.slice(board*9, board*9+9));
 			console.log('win', win);
 			console.log('next', next);
+			console.log('board', board);
 			console.log('sets', game.sets);
 			console.log('setnext', game.sets[next]);
+			console.log('setnext', game.sets[board]);
 			if(win === 1 || win === 0){
 				game.sets[board] = win;
 				let winner = await this.checkWin(game.sets);

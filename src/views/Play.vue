@@ -263,8 +263,8 @@ export default {
 					this.$store.commit('changeGameId', param);
 					this.lastOne = parseInt(game.last);
 					this.$refs.load.toggleLoad(false);
-					if(game.next == ""){
-						let loser = game.now;
+					if(game.over !== ''){
+						let loser = parseInt(game.over);
 						let win_name = loser ? game.p1.split('@')[0] : game.p2.split('@')[0];
 						this.$refs.win.show(win_name, loser);
 						return;
@@ -280,7 +280,8 @@ export default {
 			//check tie?
 			let tie = true;
 			for (let j = 0; j <= 8; j++){
-				if(this_game[j] === ''){
+				// no cell is empty
+				if(this_game[j] === '' ){
 					tie = false;
 					break;
 				}
@@ -294,7 +295,7 @@ export default {
 				if (a === '' || b === '' || c === '') {
 					continue;
 				}
-				if (a === b && b === c) {
+				if (a === b && b === c && a !== 2) {
 					return a;
 				}
 			}
@@ -303,10 +304,10 @@ export default {
 		},
 		makeAmove(event){
 			let click = event.target.dataset.cellno || event.target.parentElement.dataset.cellno;
-			if(game.next == ""){
-				let winner = game.now ? 0 : 1 ;
-				let win_name = winner ? game.p1.split('@')[0] : game.p2.split('@')[0];
-				this.$refs.win.show(win_name, winner);
+			if(game.over !== ''){
+				let loser = parseInt(game.over);
+				let win_name = loser ? game.p1.split('@')[0] : game.p2.split('@')[0];
+				this.$refs.win.show(win_name, loser);
 				return;
 			}
 			if(!this.$store.state.email){
@@ -347,13 +348,13 @@ export default {
 			console.log('next', next);
 			console.log('board', board);
 			console.log('sets', game.sets);
-			console.log('setnext', game.sets[next]);
-			console.log('setnext', game.sets[board]);
 			if(win !== ''){
 				game.sets[board] = win;
 				let winner = await this.checkWin(game.sets);
 				console.log('winner', winner);
-				if(winner !== ''){next = "";}
+				if(winner !== ''){
+					updates['/games/' + this.$store.state.game_id + '/over'] = winner;
+				}
 			}
 			if(game.sets[next] !== ''){next = 9;}
 			updates['/games/' + this.$store.state.game_id + '/moves'] = game.moves.join(',');

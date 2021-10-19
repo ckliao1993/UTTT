@@ -79,6 +79,7 @@ export default {
 				last : 81,
 				sets : ",,,,,,,,",
 				moves : ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+				over: "",
 			}).then(()=>{
 				console.log(game_url);
 				window.open(game_url, '_blank').focus();

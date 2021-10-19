@@ -11,7 +11,7 @@
 				<div class="modal-body p-5 pt-0">
 					<h2 id="msg_con" class="fs-5 fw-bold mb-3" v-html="name"></h2>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-						<button class="btn btn-primary btn_new_game" type="button">開始新遊戲</button>
+						<button @click="newGame" class="btn btn-primary" type="button">開始新遊戲</button>
 						<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">好吧</button>
 					</div>
 				</div>
@@ -42,10 +42,15 @@ export default {
 				this.name = '你與對手不分上下';
 			} else {
 				let cla = loser ? 'oo' : 'xx';
-				this.title = loser ? "OO獲勝!!" : "XX獲勝!!";
+				this.title = loser ?  "XX獲勝!!" : "OO獲勝!!";
 				this.name = '<span class="' + cla + '">' + name + '</span> 贏了!!';
 			}
 			m_this.show();
+		},
+		newGame(){
+			if(this.$store.state.islogin){
+				document.getElementById('btn_new_game').click();
+			}
 		}
 	}
 }

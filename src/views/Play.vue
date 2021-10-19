@@ -398,8 +398,7 @@ export default {
 				if(game.next == 9){
 					// Allow it all.
 					game.sets.forEach((value, index)=>{
-						if(value == ''){this.allowed[index] = 1;}
-					});
+						if(value === ''){this.allowed[index] = 1;}});
 				} else {
 					// Allow it.
 					this.allowed[game.next] = 1;
@@ -460,16 +459,18 @@ export default {
 	}
 }
 .last {
-	animation: blinker1 1.5s linear infinite;
+	animation: blinker1 1s linear infinite;
 }
 @keyframes blinker1 {
 	50% {
-		opacity: 0;
+		/* opacity: 0; */
+		background-color: var(--color-shine-1);
 	}
 }
 .small {border-width: 1px !important;}
 .bg-0 {background-color: var(--color-win-oo);}
 .bg-1 {background-color: var(--color-win-xx);}
+.bg-2 {opacity: 0.3;}
 .top {border-bottom: 3px solid var(--color-text);}
 .bottom {border-top: 3px solid var(--color-text);}
 .left {border-right: 3px solid var(--color-text);}

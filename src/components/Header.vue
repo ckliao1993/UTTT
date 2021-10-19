@@ -133,5 +133,5 @@ export default {
 </script>
 
 <style lang="scss">
-.title {color: var(--color-primary);}
+.title {color: var(--color-primary) !important;}
 </style>

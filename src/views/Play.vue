@@ -181,6 +181,8 @@
 		</div>
 	</div>
 	<ModalWin ref="win"/>
+	<ModalLink ref="link"/>
+	<ModalInvite ref="invite"/>
 	<ModalLoading ref="load"/>
 	<Toast ref="toast"/>
 </template>
@@ -188,6 +190,8 @@
 <script>
 import Toast from '@/components/Toast.vue'
 import ModalWin from '@/components/ModalWin.vue'
+import ModalLink from '@/components/ModalLink.vue'
+import ModalInvite from '@/components/ModalInvite.vue'
 import ModalLoading from '@/components/ModalLoading.vue'
 import { getAuth} from "firebase/auth";
 import { getDatabase, ref, set,	update, onValue } from "firebase/database";
@@ -212,6 +216,8 @@ export default {
 	components: {
 		Toast,
 		ModalWin,
+		ModalLink,
+		ModalInvite,
 		ModalLoading,
 	},
 	data(){
@@ -237,7 +243,6 @@ export default {
 			return;
 		},
 		initGame(){
-			
 			let param = this.$route.params.game_id;
 			console.log(param);
 			onValue(ref(database, '/games/' + param), (snapshot) => {
@@ -260,7 +265,6 @@ export default {
 					});
 					this.$store.commit('changeGameId', param);
 					this.lastOne = game.last;
-					console.log(this.$refs.load);
 					m_load.hide();
 					if(game.next == ""){
 						let win_name = winner ? game.p2.split('@')[0] : game.p1.split('@')[0];
@@ -335,14 +339,14 @@ export default {
 		checkUserState(){
 			if(!this.$store.state.islogin){
 				if(game.p2 == ""){
-					let m_start = new Modal(document.getElementById('m_start'));
-					m_start.show();
+					this.$refs.invite.invite(game.p1.split('@')[0]);
 				} else if (game.p2){
 					this.$refs.toast.toastMsg(game.p1.split("@")[0]+'與'+game.p2.split("@")[0]+'正在對戰中');
 				}
 			} else if (game.p1 == this.$store.state.email){
 				//p1
 				player = 0;
+				this.$refs.link.link();
 				this.light(player);
 			} else if (game.p2 == ""){
 				//no p2
@@ -376,10 +380,8 @@ export default {
 		},
 		joinGame(email){
 			let updates = {};
-			updates['/games/' + game_id + '/p2'] = email;
-			update(ref(database), updates).then(()=>{
-				game.p2 = email;
-			});
+			updates['/games/' + this.$store.state.game_id + '/p2'] = email;
+			update(ref(database), updates).then(()=>{});
 			this.$refs.toast.toastMsg('歡迎來到 OOXX');
 		},
 	},

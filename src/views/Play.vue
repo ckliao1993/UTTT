@@ -307,7 +307,7 @@ export default {
 				t_this.show();
 				return;
 			}
-			if(this.moves[click] == 1 || this.moves[click] == 0){
+			if(this.moves[click] === 1 || this.moves[click] === 0){
 				this.$store.commit('changeMsg', '想幹嘛?');
 				t_this.show();
 				return;
@@ -328,13 +328,16 @@ export default {
 			game.moves[last] = player;
 			let win = await this.checkWin(game.moves.slice(board*9, board*9+9));
 			console.log('win', win);
-			if(win == 1 || win == 0){
+			console.log('next', next);
+			console.log('sets', game.sets);
+			console.log('setnext', game.sets[next]);
+			if(win === 1 || win === 0){
 				game.sets[board] = win;
 				let winner = await this.checkWin(game.sets);
 				console.log('winner', winner);
-				if(winner == 1 || winner == 0){next = "";}
+				if(winner === 1 || winner === 0){next = "";}
 			}
-			if(game.sets[next] == 0 || game.sets[next] == 1){next = 9;}
+			if(game.sets[next] === 0 || game.sets[next] === 1){next = 9;}
 			updates['/games/' + this.$store.state.game_id + '/moves'] = game.moves.join(',');
 			updates['/games/' + this.$store.state.game_id + '/sets'] = game.sets.join(',');
 			updates['/games/' + this.$store.state.game_id + '/now'] = player?0:1;

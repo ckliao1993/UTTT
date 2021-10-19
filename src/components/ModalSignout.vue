@@ -35,7 +35,7 @@ export default {
 			let auth = getAuth();
 			signOut(auth).then(() => {
 				// Sign-out successful.
-				window.location.replace('/');
+				window.location.replace('/ooxx/');
 			}).catch((error) => {
 				// An error happened.
 			});

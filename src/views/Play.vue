@@ -398,7 +398,7 @@ export default {
 				if(game.next == 9){
 					// Allow it all.
 					game.sets.forEach((value, index)=>{
-						if(value === 1 || value === 0){this.allowed[index] = 1;}
+						if(value == ''){this.allowed[index] = 1;}
 					});
 				} else {
 					// Allow it.

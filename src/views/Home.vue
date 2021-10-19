@@ -13,7 +13,8 @@
 			</span>
 			<hr class="my-4">
 			<div class="d-grid">
-				<button id="btn_start" class="btn btn-primary btn_new_game" data-bs-toggle="modal" data-bs-target="#m_start">開始遊戲</button>
+				<button v-show="login" @click="newGame" class="btn btn-primary">開始遊戲</button>
+				<button v-show="!login" id="btn_start" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#m_start">開始遊戲</button>
 			</div>
 		</div>
 		<div>
@@ -26,6 +27,18 @@
 
 export default {
 	name: 'Home',
+	methods: {
+		newGame(){
+			if(this.$store.state.islogin){
+				document.getElementById('btn_new_game').click();
+			}
+		}
+	},
+	computed:{
+		login(){
+			return this.$store.state.islogin;
+		}
+	},
 }
 
 

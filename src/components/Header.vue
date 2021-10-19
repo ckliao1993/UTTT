@@ -8,7 +8,7 @@
 						<i class="bi bi-list"></i>
 					</a>
 					<ul class="dropdown-menu text-small shadow dropdown-menu-end" aria-labelledby="dropdownUser2">
-						<a @click="newGame" class="dropdown-item btn_new_game" href="javascript:;">新遊戲</a>
+						<a @click="newGame" id="btn_new_game" class="dropdown-item" href="javascript:;">新遊戲</a>
 						<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_how">遊戲說明</a>
 						<hr class="dropdown-divider">
 						<li v-show="isLogin" class="dropdown-item title">{{userName}}</li>

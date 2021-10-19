@@ -264,8 +264,9 @@ export default {
 					this.$store.commit('changeGameId', param);
 					this.lastOne = game.last;
 					this.$refs.load.toggleLoad(false);
-					if(game.next == ""){
-						let win_name = winner ? game.p2.split('@')[0] : game.p1.split('@')[0];
+					if(game.next == null){
+						let winner = game.now ? 0 : 1 ;
+						let win_name = winner ? game.p1.split('@')[0] : game.p2.split('@')[0];
 						this.$refs.win.show(win_name, winner);
 						return;
 					} else {
@@ -277,7 +278,6 @@ export default {
 			});
 		},
 		checkWin(this_game){
-			console.log('222222222222');
 			for (let i = 0; i <= 7; i++) {
 				const winCondition = winningConditions[i];
 				let a = this_game[winCondition[0]];
@@ -322,23 +322,23 @@ export default {
 			}
 		},
 		async updateDB(last){
-			console.log('11111111111');
 			let updates = {};
 			let board = Math.floor(last / 9);
 			let next = last % 9;
 			game.moves[last] = player;
 			let win = await this.checkWin(game.moves.slice(board*9, board*9+9));
-			if(win){game.sets[board] = win;}
+			if(win){
+				game.sets[board] = win;
+				let winner = await this.checkWin(game.sets);
+				if(winner){next = "";}
+			}
 			if(game.sets[next]){next = 9;}
-			let winner = await this.checkWin(game.sets);
-			if(winner){next = "";}
 			updates['/games/' + this.$store.state.game_id + '/moves'] = game.moves.join(',');
 			updates['/games/' + this.$store.state.game_id + '/sets'] = game.sets.join(',');
 			updates['/games/' + this.$store.state.game_id + '/now'] = player?0:1;
 			updates['/games/' + this.$store.state.game_id + '/next'] = next;
 			updates['/games/' + this.$store.state.game_id + '/last'] = last;
 			update(ref(database), updates).then(()=>{
-				console.log('33333333333333333');
 			});
 		},
 		checkUserState(){

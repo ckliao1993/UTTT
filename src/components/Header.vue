@@ -44,7 +44,6 @@ export default {
 			let auth = getAuth();
 			onAuthStateChanged(auth, (user) => {
 				if (user) {
-					console.log(this.$refs);
 					this.$store.commit('changeMsg', '歡迎回來 '+user.email.split('@')[0]);
 					t_this.show();
 					this.$store.commit('changeEmail', user.email);

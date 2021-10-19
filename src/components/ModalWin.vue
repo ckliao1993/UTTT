@@ -9,7 +9,10 @@
 					</button>
 				</div>
 				<div class="modal-body p-5 pt-0">
-					<h2 id="msg_con" class="fs-5 fw-bold mb-3">{{name}}贏了!!</h2>
+					<h2 id="msg_con" class="fs-5 fw-bold mb-3">
+						<span :class="cla">{{name}}</span>
+						贏了!!
+					</h2>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button class="btn btn-primary btn_new_game" type="button">開始新遊戲</button>
 						<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">好吧</button>
@@ -32,11 +35,13 @@ export default {
 		return {
 			name: "",
 			winner: "",
+			cla: "",
 		}
 	},
 	methods: {
 		show(name, winner){
 			this.winner = winner ? "XX獲勝!!" : "OO獲勝!!";
+			this.cla = winner ? 'xx' : 'oo';
 			this.name = name;
 			let m_this = new Modal(document.getElementById('m_win'));
 			m_this.show();
@@ -47,5 +52,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+.oo {color: var(--color-oo);}
+.xx {color: var(--color-xx);}
 </style>

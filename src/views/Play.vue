@@ -242,7 +242,6 @@ export default {
 		},
 		initGame(){
 			let param = this.$route.params.game_id;
-			console.log(param);
 			onValue(ref(database, '/games/' + param), (snapshot) => {
 				if(snapshot.exists()){
 					game = snapshot.val();
@@ -262,12 +261,12 @@ export default {
 						}
 					});
 					this.$store.commit('changeGameId', param);
-					this.lastOne = game.last;
+					this.lastOne = parseInt(game.last);
 					this.$refs.load.toggleLoad(false);
-					if(game.next == null){
-						let winner = game.now ? 0 : 1 ;
-						let win_name = winner ? game.p1.split('@')[0] : game.p2.split('@')[0];
-						this.$refs.win.show(win_name, winner);
+					if(game.next == ""){
+						let loser = game.now;
+						let win_name = loser ? game.p1.split('@')[0] : game.p2.split('@')[0];
+						this.$refs.win.show(win_name, loser);
 						return;
 					} else {
 						this.checkUserState();
@@ -278,6 +277,15 @@ export default {
 			});
 		},
 		checkWin(this_game){
+			//check tie?
+			let tie = true;
+			for (let j = 0; j <= 8; j++){
+				if(this_game[j] === ''){
+					tie = false;
+					break;
+				}
+			}
+			//check win?
 			for (let i = 0; i <= 7; i++) {
 				const winCondition = winningConditions[i];
 				let a = this_game[winCondition[0]];
@@ -290,9 +298,17 @@ export default {
 					return a;
 				}
 			}
+			if(tie){return 2;}
+
 		},
 		makeAmove(event){
 			let click = event.target.dataset.cellno || event.target.parentElement.dataset.cellno;
+			if(game.next == ""){
+				let winner = game.now ? 0 : 1 ;
+				let win_name = winner ? game.p1.split('@')[0] : game.p2.split('@')[0];
+				this.$refs.win.show(win_name, winner);
+				return;
+			}
 			if(!this.$store.state.email){
 				let m_start = new Modal(document.getElementById('m_start'));
 				m_start.show();
@@ -333,13 +349,13 @@ export default {
 			console.log('sets', game.sets);
 			console.log('setnext', game.sets[next]);
 			console.log('setnext', game.sets[board]);
-			if(win === 1 || win === 0){
+			if(win !== ''){
 				game.sets[board] = win;
 				let winner = await this.checkWin(game.sets);
 				console.log('winner', winner);
-				if(winner === 1 || winner === 0){next = "";}
+				if(winner !== ''){next = "";}
 			}
-			if(game.sets[next] === 0 || game.sets[next] === 1){next = 9;}
+			if(game.sets[next] !== ''){next = 9;}
 			updates['/games/' + this.$store.state.game_id + '/moves'] = game.moves.join(',');
 			updates['/games/' + this.$store.state.game_id + '/sets'] = game.sets.join(',');
 			updates['/games/' + this.$store.state.game_id + '/now'] = player?0:1;
@@ -381,7 +397,7 @@ export default {
 				if(game.next == 9){
 					// Allow it all.
 					game.sets.forEach((value, index)=>{
-						if(!value){this.allowed[index] = 1;}
+						if(value === 1 || value === 0){this.allowed[index] = 1;}
 					});
 				} else {
 					// Allow it.

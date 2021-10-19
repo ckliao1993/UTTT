@@ -3,16 +3,13 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content rounded-5 shadow">
 				<div class="modal-header p-5 pb-4 border-bottom-0">
-					<h2 id="msg_color" class="fw-bold mb-0">{{winner}}</h2>
+					<h2 id="msg_color" class="fw-bold mb-0">{{title}}</h2>
 					<button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
 						<i class="bi bi-x-lg btn-x"></i>
 					</button>
 				</div>
 				<div class="modal-body p-5 pt-0">
-					<h2 id="msg_con" class="fs-5 fw-bold mb-3">
-						<span :class="cla">{{name}}</span>
-						贏了!!
-					</h2>
+					<h2 id="msg_con" class="fs-5 fw-bold mb-3" v-html="name"></h2>
 					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button class="btn btn-primary btn_new_game" type="button">開始新遊戲</button>
 						<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">好吧</button>
@@ -34,16 +31,20 @@ export default {
 	data(){
 		return {
 			name: "",
-			winner: "",
-			cla: "",
+			title: "",
 		}
 	},
 	methods: {
-		show(name, winner){
-			this.winner = winner ? "XX獲勝!!" : "OO獲勝!!";
-			this.cla = winner ? 'xx' : 'oo';
-			this.name = name;
+		show(name, loser){
 			let m_this = new Modal(document.getElementById('m_win'));
+			if(loser === 2){
+				this.title = "平手";
+				this.name = '你與對手不分上下';
+			} else {
+				let cla = loser ? 'oo' : 'xx';
+				this.title = loser ? "OO獲勝!!" : "XX獲勝!!";
+				this.name = '<span class="' + cla + '">' + name + '</span> 贏了!!';
+			}
 			m_this.show();
 		}
 	}

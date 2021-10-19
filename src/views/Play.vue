@@ -348,11 +348,11 @@ export default {
 			console.log('next', next);
 			console.log('board', board);
 			console.log('sets', game.sets);
-			if(win !== ''){
+			if(win !== undefined){
 				game.sets[board] = win;
 				let winner = await this.checkWin(game.sets);
 				console.log('winner', winner);
-				if(winner !== ''){
+				if(winner !== undefined){
 					updates['/games/' + this.$store.state.game_id + '/over'] = winner;
 				}
 			}

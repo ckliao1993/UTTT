@@ -8,11 +8,24 @@
 
 <script>
 import { Modal } from 'bootstrap';
-
+let m_load;
 export default {
 	name: 'ModalLoading',
 	props: {
 		msg: String
+	},
+	methods:{
+		toggleLoad(status){
+			if(status){
+				m_load.show();
+			} else {
+				m_load.hide();
+			}
+			
+		}
+	},
+	mounted(){
+		m_load = new Modal(document.getElementById('m_loading'));
 	},
 }
 </script>

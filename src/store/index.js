@@ -6,6 +6,7 @@ export default createStore({
 		email: "",
 		game_id: "",
 		theme: "",
+		toast_msg: "",
 	},
 	mutations: {
 		login_signout (state, in_out){
@@ -19,6 +20,9 @@ export default createStore({
 		},
 		changeGameId (state, game_id){
 			state.game_id = game_id;
+		},
+		changeMsg (state, toast_msg){
+			state.toast_msg = toast_msg;
 		}
 	},
 	actions: {

@@ -21,22 +21,16 @@ export default {
 	props: {
 		msg: String
 	},
-	data(){
-		return {
-			message: "",
+	computed: {
+		message(){
+			return this.$store.state.toast_msg;
 		}
 	},
-	methods: {
-		toastMsg(message){
-			this.message = message;
-			let t_this = new Toast(document.getElementById('toast_0'));
-			t_this.show();
-		}
-	}
 }
+				
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 </style>

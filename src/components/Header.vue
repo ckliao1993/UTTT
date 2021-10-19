@@ -11,7 +11,7 @@
 						<a @click="newGame" class="dropdown-item btn_new_game" href="javascript:;">新遊戲</a>
 						<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_how">遊戲說明</a>
 						<hr class="dropdown-divider">
-						<a v-show="isLogin" class="dropdown-item" href="javascript:;">{{userName}}</a>
+						<li v-show="isLogin" class="dropdown-item title">{{userName}}</li>
 						<a v-show="isLogin?false:true" @click="whatstore" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_log_in" ref="btn_login">登入</a>
 						<a v-show="isLogin" class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#m_sign_out" >登出</a>
 						<div class="form-check form-switch ms-3">
@@ -32,17 +32,21 @@
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { Modal } from 'bootstrap';
-
+import { Toast } from 'bootstrap';
+let t_this;
 export default {
 	name: 'Header',
 	props: {
-		msg: String
+		msg: String,
 	},
 	methods: {
 		isUser() {
 			let auth = getAuth();
 			onAuthStateChanged(auth, (user) => {
 				if (user) {
+					console.log(this.$refs);
+					this.$store.commit('changeMsg', '歡迎回來 '+user.email.split('@')[0]);
+					t_this.show();
 					this.$store.commit('changeEmail', user.email);
 					this.$store.commit('login_signout', true);
 					// User is signed in
@@ -56,7 +60,6 @@ export default {
 		},
 		newGame(){
 			if(this.isLogin == false){
-				// this.$refs.btn_reg.click();
 				let m_start = new Modal(document.getElementById('m_start'));
 				m_start.show();
 				return;
@@ -124,11 +127,11 @@ export default {
 		const initUserTheme = this.getPreference();
 		this.$store.commit('changeTheme', initUserTheme);
 		this.setTheme(initUserTheme);
+		t_this = new Toast(document.getElementById('toast_0'));
 	},
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 
 </style>

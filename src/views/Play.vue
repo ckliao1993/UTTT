@@ -263,11 +263,11 @@ export default {
 					this.lastOne = parseInt(game.last);
 					this.$refs.load.toggleLoad(false);
 					if(game.over !== ''){
-						let loser = parseInt(game.over);
-						console.log(loser);
-						let win_name = loser ?  game.p2.split('@')[0] : game.p1.split('@')[0];
+						let winner = parseInt(game.over);
+						console.log(winner);
+						let win_name = winner ?  game.p2.split('@')[0] : game.p1.split('@')[0];
 						console.log(win_name);
-						this.$refs.win.show(win_name, loser);
+						this.$refs.win.show(win_name, winner);
 						return;
 					} else {
 						this.checkUserState();
@@ -308,7 +308,7 @@ export default {
 			if(game.over !== ''){
 				let winner = parseInt(game.over);
 				let win_name = winner ?  game.p2.split('@')[0] : game.p1.split('@')[0];
-				this.$refs.win.show(win_name, loser);
+				this.$refs.win.show(win_name, winner);
 				return;
 			}
 			if(!this.$store.state.email){

@@ -22,6 +22,7 @@
 	--color-bg-2: #fff;
 	--color-text: #000;
 	--color-text-r: #fff;
+	--color-text-h: #fc2718;
 	--color-header: #779878;
 	--color-primary: #5e8996;
 	--color-primary-h: #7ea9b6;
@@ -42,6 +43,7 @@
 	--color-bg-2: #707070;
 	--color-text: #fff;
 	--color-text-r: #000;
+	--color-text-h: #f3f347;
 	--color-header: #070707;
 	--color-primary: #43a7c5;
 	--color-primary-h: #4ad2fc;
@@ -72,7 +74,7 @@ html, body, #app {
 	opacity: var(--opacity-l);
 }
 .header {background-color: var(--color-header);}
-
+.text-high {color: var(--color-text-h);}
 
 /****************** Element Color setting ******************/
 /******** Modal *********/

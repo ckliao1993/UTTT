@@ -1,7 +1,7 @@
 <template>
 	<header class="py-3 mb-3 border-bottom fixed-top header header" >
 		<div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-			<a class="navbar-brand fw-bold fs-1 text-light lh-1 ad px-3" href="/">O O X X</a>
+			<a class="navbar-brand fw-bold fs-1 text-light lh-1 ad px-3" href="/ooxx/">O O X X</a>
 			<div class="d-flex flex-row-reverse">
 				<div class="flex-shrink-0 dropdown btn-group">
 					<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-light fs-2" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,7 +82,8 @@ export default {
 				over: "",
 			}).then(()=>{
 				console.log(game_url);
-				window.open(game_url, '_blank').focus();
+				// window.open(game_url, '_blank').focus();
+				window.location.replace(game_url);
 			});
 		},
 		toggleTheme(){

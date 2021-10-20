@@ -35,14 +35,14 @@ export default {
 		}
 	},
 	methods: {
-		show(name, loser){
+		show(name, winner){
 			let m_this = new Modal(document.getElementById('m_win'));
-			if(loser === 2){
+			if(winner === 2){
 				this.title = "平手";
 				this.name = '你與對手不分上下';
 			} else {
-				let cla = loser ? 'oo' : 'xx';
-				this.title = loser ?  "XX獲勝!!" : "OO獲勝!!";
+				let cla = winner ? 'xx' : 'oo';
+				this.title = winner ?  "藍方獲勝!!" : "紅方獲勝!!";
 				this.name = '<span class="' + cla + '">' + name + '</span> 贏了!!';
 			}
 			m_this.show();
@@ -58,6 +58,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.oo {color: var(--color-oo);}
-.xx {color: var(--color-xx);}
+.oo {color: var(--color-oo) !important;}
+.xx {color: var(--color-xx) !important;}
 </style>

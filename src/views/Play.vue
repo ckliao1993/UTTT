@@ -234,11 +234,10 @@ export default {
 		},
 		addPiece(where){
 			if(parseInt(this.moves[where]) === 0){
-				return '<svg width="80%" height="80%" fill="var(--color-oo)" class="bi bi-oo bi-circle mx-auto my-auto" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>';
+				return '<svg width="80%" height="80%" fill="var(--color-oo)" class="bi bi-oo bi-circle mx-auto my-auto" viewBox="0 0 16 16"><path d="M 8 14 A 6 6 90 1 1 8 2 a 6 6 90 0 1 0 12 z m 0 2 A 8 8 90 1 0 8 0 a 8 8 90 0 0 0 16 z"/></svg>';
 			} else if(parseInt(this.moves[where]) === 1) {
-				return '<svg width="90%" height="90%" fill="var(--color-xx)" class="bi bi-xx bi-x-lg mx-auto my-auto" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/></svg>';
+				return '<svg width="90%" height="90%" fill="var(--color-xx)" class="bi bi-xx bi-x-lg mx-auto my-auto" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M 13.7 2.3 a 0.5 0.9 0 0 1 0 1.6 l -9.7 9.7 a 0.5 0.5 0 0 1 -1.6 -1.6 l 9.7 -9.7 a 0.9 0.5 0 0 1 1.6 -0 Z "/><path fill-rule="evenodd" clip-rule="evenodd" d="M 2.3 2.3 a 0.5 0.9 0 0 0 0 1.6 l 9.7 9.7 a 0.5 0.5 0 0 0 1.6 -1.6 l -9.7 -9.7 a 0.9 0.5 0 0 0 -1.6 0 Z"/></svg>';
 			}
-			return;
 		},
 		initGame(){
 			let param = this.$route.params.game_id;
@@ -265,7 +264,9 @@ export default {
 					this.$refs.load.toggleLoad(false);
 					if(game.over !== ''){
 						let loser = parseInt(game.over);
-						let win_name = loser ? game.p1.split('@')[0] : game.p2.split('@')[0];
+						console.log(loser);
+						let win_name = loser ?  game.p2.split('@')[0] : game.p1.split('@')[0];
+						console.log(win_name);
 						this.$refs.win.show(win_name, loser);
 						return;
 					} else {
@@ -305,8 +306,8 @@ export default {
 		makeAmove(event){
 			let click = event.target.dataset.cellno || event.target.parentElement.dataset.cellno;
 			if(game.over !== ''){
-				let loser = parseInt(game.over);
-				let win_name = loser ? game.p1.split('@')[0] : game.p2.split('@')[0];
+				let winner = parseInt(game.over);
+				let win_name = winner ?  game.p2.split('@')[0] : game.p1.split('@')[0];
 				this.$refs.win.show(win_name, loser);
 				return;
 			}

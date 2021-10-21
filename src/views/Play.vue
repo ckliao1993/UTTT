@@ -267,9 +267,7 @@ export default {
 					this.$refs.load.toggleLoad(false);
 					if(game.over !== ''){
 						let winner = parseInt(game.over);
-						console.log(winner);
 						let win_name = winner ?  game.p2.split('@')[0] : game.p1.split('@')[0];
-						console.log(win_name);
 						this.$refs.win.show(win_name, winner);
 						return;
 					} else {
@@ -354,14 +352,9 @@ export default {
 			let next = last % 9;
 			game.moves[last] = player;
 			let win = await this.checkWin(game.moves.slice(board*9, board*9+9));
-			console.log('win', win);
-			console.log('next', next);
-			console.log('board', board);
-			console.log('sets', game.sets);
 			if(win !== undefined){
 				game.sets[board] = win;
 				let winner = await this.checkWin(game.sets);
-				console.log('winner', winner);
 				if(winner !== undefined){
 					updates['/games/' + this.$store.state.game_id + '/over'] = winner;
 				}

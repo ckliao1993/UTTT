@@ -83,7 +83,6 @@ export default {
 				moves : ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
 				over: "",
 			}).then(()=>{
-				console.log(game_url);
 				window.location.replace(game_url);
 			});
 		},

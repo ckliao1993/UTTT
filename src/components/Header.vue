@@ -40,6 +40,7 @@ export default {
 		msg: String,
 	},
 	methods: {
+		// User state check, and save to store.	
 		isUser() {
 			let auth = getAuth();
 			onAuthStateChanged(auth, (user) => {
@@ -57,6 +58,7 @@ export default {
 				}
 			});
 		},
+		// Create a new game and redirect to gmae url.
 		newGame(){
 			if(this.isLogin == false){
 				let m_start = new Modal(document.getElementById('m_start'));
@@ -82,20 +84,22 @@ export default {
 				over: "",
 			}).then(()=>{
 				console.log(game_url);
-				// window.open(game_url, '_blank').focus();
 				window.location.replace(game_url);
 			});
 		},
+		// Toggle theme button.
 		toggleTheme(){
 			let theme = this.userTheme ? false : true;
 			this.setTheme(theme);
 			localStorage.setItem('theme', theme);
 			this.$store.commit('changeTheme', theme);
 		},
+		// Set up theme.
 		setTheme(theme){
 			let cla = theme ? 'dark' : 'light';
 			document.documentElement.className = cla;
 		},
+		// Get user's media preference.
 		getPreference() {
 			if(localStorage.getItem("theme")){
 				return (localStorage.getItem("theme") == 'true') ? true : false;
@@ -121,9 +125,11 @@ export default {
 			return this.$store.state.theme;
 		}
 	},
+	// Initialize user checking function.
 	created(){
 		this.isUser();
 	},
+	// Get user preference and set to theme.
 	mounted(){
 		const initUserTheme = this.getPreference();
 		this.$store.commit('changeTheme', initUserTheme);

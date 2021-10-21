@@ -22,6 +22,7 @@ export default {
 		msg: String
 	},
 	computed: {
+		// Get store msg.
 		message(){
 			return this.$store.state.toast_msg;
 		}

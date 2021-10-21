@@ -208,7 +208,7 @@ const winningConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-//llkj
+
 export default {
 	name: 'Play',
 	components: {
@@ -227,11 +227,13 @@ export default {
 		}
 	},
 	methods:{
+		// Add class for last piece to show blinking effect.
 		addLast(where){
 			if(this.lastOne === where){
 				return 'last';
 			}
 		},
+		// Add all of piece to board.
 		addPiece(where){
 			if(parseInt(this.moves[where]) === 0){
 				return '<svg width="80%" height="80%" fill="var(--color-oo)" class="bi bi-oo bi-circle mx-auto my-auto" viewBox="0 0 16 16"><path d="M 8 14 A 6 6 90 1 1 8 2 a 6 6 90 0 1 0 12 z m 0 2 A 8 8 90 1 0 8 0 a 8 8 90 0 0 0 16 z"/></svg>';
@@ -239,6 +241,7 @@ export default {
 				return '<svg width="90%" height="90%" fill="var(--color-xx)" class="bi bi-xx bi-x-lg mx-auto my-auto" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M 13.7 2.3 a 0.5 0.9 0 0 1 0 1.6 l -9.7 9.7 a 0.5 0.5 0 0 1 -1.6 -1.6 l 9.7 -9.7 a 0.9 0.5 0 0 1 1.6 -0 Z "/><path fill-rule="evenodd" clip-rule="evenodd" d="M 2.3 2.3 a 0.5 0.9 0 0 0 0 1.6 l 9.7 9.7 a 0.5 0.5 0 0 0 1.6 -1.6 l -9.7 -9.7 a 0.9 0.5 0 0 0 -1.6 0 Z"/></svg>';
 			}
 		},
+		// Firebase onValue function, initialize everything when data being update.
 		initGame(){
 			let param = this.$route.params.game_id;
 			onValue(ref(database, '/games/' + param), (snapshot) => {
@@ -277,11 +280,13 @@ export default {
 				}
 			});
 		},
+		// Check game outcome for current board.
+		// Output: 0, 1, 2 (p1, p2, tie)
 		checkWin(this_game){
 			//check tie?
 			let tie = true;
 			for (let j = 0; j <= 8; j++){
-				// no cell is empty
+				// no cell is empty, no tie.
 				if(this_game[j] === '' ){
 					tie = false;
 					break;
@@ -300,9 +305,11 @@ export default {
 					return a;
 				}
 			}
+			// No win, is a tie.
 			if(tie){return 2;}
 
 		},
+		// User click on cell action, check on game and login state to active different action.
 		makeAmove(event){
 			let click = event.target.dataset.cellno || event.target.parentElement.dataset.cellno;
 			if(game.over !== ''){
@@ -339,6 +346,8 @@ export default {
 				t_this.show();
 			}
 		},
+		// Valid move being made, update the firebase.
+		// Before that, check win and put outcome into update too.
 		async updateDB(last){
 			let updates = {};
 			let board = Math.floor(last / 9);
@@ -366,6 +375,7 @@ export default {
 			update(ref(database), updates).then(()=>{
 			});
 		},
+		// Check user and game status.
 		checkUserState(){
 			if(!this.$store.state.islogin){
 				if(game.p2 == ""){
@@ -393,6 +403,7 @@ export default {
 			}
 			
 		},
+		// Set allow area to boards.
 		light(player){
 			if(game.now == player){
 				let other = player ? game.p1.split('@')[0] : game.p2.split('@')[0] ;
@@ -410,6 +421,7 @@ export default {
 				}
 			}
 		},
+		// P2 join, update firebase.
 		joinGame(email){
 			let updates = {};
 			updates['/games/' + this.$store.state.game_id + '/p2'] = email;
@@ -422,15 +434,9 @@ export default {
 		this.initGame();
 	},
 	mounted(){
+		// Get Toast instance.
 		t_this = new Toast(document.getElementById('toast_0'));
 		this.$refs.load.toggleLoad(true);
-	},
-	computed:{
-	},
-	watch: {
-		$route(to, from) {
-		// react to route changes...
-		}
 	},
 }
 

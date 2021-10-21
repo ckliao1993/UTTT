@@ -35,6 +35,7 @@ export default {
 		}
 	},
 	methods: {
+		// Set winning modal content.
 		show(name, winner){
 			let m_this = new Modal(document.getElementById('m_win'));
 			if(winner === 2){

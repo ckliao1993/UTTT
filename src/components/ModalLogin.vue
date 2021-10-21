@@ -48,6 +48,7 @@ export default {
 		};
 	},
 	methods: {
+		// Submit login form.
 		submit(){
 			let auth = getAuth();
 			let email = this.form.name + "@custom.com";

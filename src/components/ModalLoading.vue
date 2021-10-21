@@ -15,6 +15,7 @@ export default {
 		msg: String
 	},
 	methods:{
+		// Toggle loading modal.
 		toggleLoad(status){
 			if(status){
 				m_load.show();
@@ -25,6 +26,7 @@ export default {
 		}
 	},
 	mounted(){
+		// Get modal instance.
 		m_load = new Modal(document.getElementById('m_loading'));
 	},
 }

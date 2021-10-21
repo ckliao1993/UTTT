@@ -36,6 +36,7 @@ export default {
 		};
 	},
 	methods: {
+		// Set challenger name and show modal.
 		invite(challenger){
 			this.challenger = "<span class='oo'>" + challenger + "</span> 想要挑戰你";
 			let m_this = new Modal(document.getElementById('m_invite'));

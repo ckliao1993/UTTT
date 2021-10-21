@@ -50,6 +50,7 @@ export default {
 		};
 	},
 	methods: {
+		// Sign up form submit.
 		submit(){
 			let auth = getAuth();
 			let email = this.form.name + '@custom.com';
@@ -80,6 +81,7 @@ export default {
 				}
 			});
 		},
+		// newGame, could be deleted and use Header.vue newGame.
 		newGame(){
 			let db = getDatabase();
 			let url = window.location.href;

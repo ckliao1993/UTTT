@@ -16,6 +16,7 @@
 }
 .ad {font-family: AD;}
 
+/* Root variable setting */
 :root {
 	--color-bg: #e1e2d1;
 	--color-bg-1: #fff;

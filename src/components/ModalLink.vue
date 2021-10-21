@@ -38,11 +38,13 @@ export default {
 		}
 	},
 	methods: {
+		// Set link to input.
 		link(){
 			console.log(this.url);
 			let m_this = new Modal(document.getElementById('m_create_link'));
 			m_this.show();
 		},
+		// Copy icon onclick action.
 		copy(){
 			this.check = true;
 			navigator.clipboard.writeText(this.url);

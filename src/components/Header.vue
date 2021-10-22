@@ -53,6 +53,8 @@ export default {
 
 				} else {
 					// User is signed out
+					this.$store.commit('changeMsg', '尚未登入');
+					t_this.show();
 					this.$store.commit('changeEmail', "");
 					this.$store.commit('login_signout', false);
 				}
